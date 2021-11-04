@@ -1,14 +1,12 @@
 const express = require('express');
-const router = express.Router();
-
+const handlers = require('./handlers/handlers');
 const schemaUserPost = require('./helpers/user.post.schema');
 const schemaUserPut = require('./helpers/user.put.schema');
-
 const validateSchema = require('./helpers/validateSchema');
-const handlers = require('./handlers/handlers');
-
 const db = require('./models/db');
+
 const app = express();
+const router = express.Router();
 const PORT = 3000;
 app.use(express.json());
 app.use('/', router);
