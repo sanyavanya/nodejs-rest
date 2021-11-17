@@ -1,4 +1,4 @@
-const readUser = function (req, res, db) {
+const readUser = function (req, res) {
     if (req.user) {
         return res.status(200).json(req.user);
     }

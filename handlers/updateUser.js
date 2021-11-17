@@ -1,14 +1,16 @@
-const updateUser = function (req, res, db) {
-    const userToUpdate = req.body;
-    for (let i = 0; i < db.users.length; i++) {
-        if (db.users[i].id === userToUpdate.id) {
-            db.users[i] = userToUpdate;
-            console.log(db);
-            return res.status(204).send();
-        }
+const updateUser = async function (req, res, userModel) {
+  const userToUpdate = req.body;
+  try {
+    const userWithThisId = await userModel.findByPk(userToUpdate.id);
+    if (!userWithThisId) {
+      return res.status(404).json({ error: 'user not found' });
     }
-    console.log(db);
-    res.status(404).json({ error: 'user not found' });
+    await userWithThisId.update(req.body);
+    return res.status(204).send();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('an error occured');
+  }
 };
 
 module.exports = updateUser;
