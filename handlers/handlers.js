@@ -1,13 +1,25 @@
-const readUser = require('./readUser');
-const createUser = require('./createUser');
-const updateUser = require('./updateUser');
-const deleteUser = require('./deleteUser');
-const autosuggest = require('./autosuggest');
+const readUser = require('./user/readUser');
+const createUser = require('./user/createUser');
+const updateUser = require('./user/updateUser');
+const deleteUser = require('./user/deleteUser');
+const autosuggest = require('./user/autosuggest');
+const readGroup = require('./group/readGroup');
+const readAllGroups = require('./group/readAllGroups');
+const createGroup = require('./group/createGroup');
+const updateGroup = require('./group/updateGroup');
+const deleteGroup = require('./group/deleteGroup');
+const deleteUserGroup = require('./usergroup/deleteUserGroup');
 
 module.exports = {
     readUser,
     createUser,
     updateUser,
     deleteUser,
-    autosuggest
+    autosuggest,
+    readGroup,
+    readAllGroups,
+    createGroup,
+    updateGroup,
+    deleteGroup,
+    deleteUserGroup
 };
