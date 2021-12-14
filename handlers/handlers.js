@@ -9,6 +9,7 @@ const createGroup = require('./group/createGroup');
 const updateGroup = require('./group/updateGroup');
 const deleteGroup = require('./group/deleteGroup');
 const deleteUserGroup = require('./usergroup/deleteUserGroup');
+const addUsersToGroup = require('./usergroup/addUsersToGroup');
 
 module.exports = {
     readUser,
@@ -21,5 +22,6 @@ module.exports = {
     createGroup,
     updateGroup,
     deleteGroup,
-    deleteUserGroup
+    deleteUserGroup,
+    addUsersToGroup
 };

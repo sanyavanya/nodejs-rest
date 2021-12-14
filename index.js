@@ -6,6 +6,7 @@ const schemaUserPost = require('./helpers/user.post.schema');
 const schemaUserPut = require('./helpers/user.put.schema');
 const schemaGroupPost = require('./helpers/group.post.schema');
 const schemaGroupPut = require('./helpers/group.put.schema');
+const schemaUserGroupPost = require('./helpers/usergroup.post.schema');
 const validateSchema = require('./helpers/validateSchema');
 
 const User = require('./models/User');
@@ -21,8 +22,7 @@ app.listen(PORT);
 
 router.param('id', async (req, res, next, id) => {
     try {
-        const userWithThisId = await User.findByPk(id);
-        req.user = userWithThisId;
+        req.user = await User.findByPk(id);
     } catch (err) {
         console.log(err);
     }
@@ -31,10 +31,7 @@ router.param('id', async (req, res, next, id) => {
 
 router.param('groupId', async (req, res, next, id) => {
     try {
-        const somt = await Group.findAll();
-        console.log(somt);
-        const groupWithThisId = await Group.findByPk(id);
-        req.group = groupWithThisId;
+        req.group = await Group.findByPk(id);
     } catch (err) {
         console.log(err);
     }
@@ -74,3 +71,9 @@ router.delete('/group/:groupId', (req, res) => {
     handlers.deleteGroup(req, res, Group);
     handlers.deleteUserGroup(UserGroup, { groupId: req.group.id });
 });
+
+router.post('/addUsersToGroup', validateSchema(schemaUserGroupPost),
+    (req, res) => {
+        handlers.addUsersToGroup(req, res, User, Group, UserGroup);
+    }
+);
