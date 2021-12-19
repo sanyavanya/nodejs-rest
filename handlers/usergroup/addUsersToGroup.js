@@ -2,8 +2,8 @@ const addUsersToGroup = async function (req, res, userModel, groupModel, userGro
     try {
         await Promise.all(req.body.userIds.map(async userId => {
             await userGroupModel.create({
-                userid: userId,
-                groupid: req.body.groupId,
+                userId: userId,
+                groupId: req.body.groupId,
             });
         }))
         res.status(201).send();

@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./sequelizeDb');
 
 const User = sequelize.define(
-  'user',
+  'User',
   {
     id: {
       type: DataTypes.TEXT,

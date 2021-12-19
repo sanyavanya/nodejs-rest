@@ -12,6 +12,8 @@ const validateSchema = require('./helpers/validateSchema');
 const User = require('./models/User');
 const Group = require('./models/Group');
 const UserGroup = require('./models/UserGroup');
+User.belongsToMany(Group, { through: 'UserGroup', foreignKey: 'groupId' });
+Group.belongsToMany(User, { through: 'UserGroup', foreignKey: 'userId' });
 
 const app = express();
 const router = express.Router();
@@ -49,8 +51,12 @@ router.put('/user', validateSchema(schemaUserPut), (req, res) =>
 );
 
 router.delete('/user/:id', (req, res) => {
-    handlers.deleteUser(req, res, User);
-    handlers.deleteUserGroup(UserGroup, { userId: req.user.id });
+    if (req.user) {
+        handlers.deleteUser(req, res, User);
+        handlers.deleteUserGroup(UserGroup, { userId: req.user.id });
+    } else {
+        res.status(404).json({ error: 'user not found' });
+    }
 });
 
 router.get('/autosuggest', (req, res) => handlers.autosuggest(req, res, User));
@@ -68,8 +74,12 @@ router.put('/group', validateSchema(schemaGroupPut), (req, res) =>
 );
 
 router.delete('/group/:groupId', (req, res) => {
-    handlers.deleteGroup(req, res, Group);
-    handlers.deleteUserGroup(UserGroup, { groupId: req.group.id });
+    if (req.group) {
+        handlers.deleteGroup(req, res, Group);
+        handlers.deleteUserGroup(UserGroup, { groupId: req.group.id });
+    } else {
+        res.status(404).json({ error: 'group not found' });
+    }
 });
 
 router.post('/addUsersToGroup', validateSchema(schemaUserGroupPost),

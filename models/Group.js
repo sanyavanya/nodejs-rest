@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./sequelizeDb');
 
 const Group = sequelize.define(
-    'group',
+    'Group',
     {
         id: {
             type: DataTypes.TEXT,
@@ -15,7 +15,7 @@ const Group = sequelize.define(
     },
     {
         timestamps: false,
-        tableName: 'groups'
+        tableName: 'Groups'
     }
 );
 

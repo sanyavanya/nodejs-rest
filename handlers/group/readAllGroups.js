@@ -1,7 +1,6 @@
 const readAllGroups = async function (req, res, groupModel) {
     let allGroups = [];
     allGroups = await groupModel.findAll();
-    console.log(allGroups);
     if (allGroups.length) {
         return res.status(200).json(allGroups);
     }
