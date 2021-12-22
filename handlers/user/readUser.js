@@ -1,8 +1,13 @@
-const readUser = function (req, res) {
-    if (req.user) {
-        return res.status(200).json(req.user);
+const readUser = function (req, res, next) {
+    try {
+        if (req.user) {
+            res.status(200).json(req.user);
+            next();
+        }
+        next({ code: 404, message: 'User Not Found' });
+    } catch (err) {
+        next(err);
     }
-    res.status(404).json({ error: 'user not found' });
 };
 
 module.exports = readUser;

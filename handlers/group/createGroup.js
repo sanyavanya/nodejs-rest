@@ -1,27 +1,25 @@
 const uuid = require('uuid');
+const Group = require('../../models/Group');
 
-const createGroup = async function (req, res, groupModel) {
+const createGroup = async function (req, res, next) {
     try {
-        const groupWithThisName = await groupModel.findOne({
+        const groupWithThisName = await Group.findOne({
             where: {
                 name: req.body.name
             }
         });
         if (groupWithThisName) {
-            return res
-                .status(400)
-                .json({ error: 'group with this name already exists' });
+            next({ code: 400, message: 'Group Name Taken' });
+        } else {
+            await Group.create({
+                id: uuid.v4(),
+                ...req.body
+            });
+            res.status(201).send();
         }
-        await groupModel.create({
-            id: uuid.v4(),
-            ...req.body
-        });
-        res.status(201).send();
     } catch (err) {
-        console.log(err);
-        res.status(500).send('an error occured');
+        next(err);
     }
-    res.status(201).send();
 };
 
 module.exports = createGroup;

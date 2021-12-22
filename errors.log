@@ -1,0 +1,54 @@
+{"level":"error","message":"Code: 500 connect ENETUNREACH 34.241.19.183:5432"}
+{"level":"error","message":"Code: 500 next is not defined"}
+{"level":"error","message":"Code: 404 User Not Found"}
+{"level":"error","message":"Code: 404; Message: User Not Found"}
+{"level":"error","message":"404 User Not Found"}
+{"level":"error","message":"404 User Not Found"}
+{"level":"error","message":"500 deleteUserGroup is not a function"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"500 winston is not defined"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"Method: DELETE, request body: {\"groupId\":\"75c5a366-6ebf-4c57-be2f-61b20dac7a06\",\"userIds\":[\"hello\"]}"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 No Match"}
+{"level":"error","message":"404 No Groups Found"}
+{"level":"error","message":"400 \"name\" is required"}
+{"level":"error","message":"500 WHERE parameter \"name\" has invalid \"undefined\" value"}
+{"level":"error","message":"400 \"permissiona\" is not allowed"}
+{"level":"error","message":"500 notNull Violation: Group.permissions cannot be null"}
+{"level":"error","message":"400 Group Name Taken"}
+{"level":"error","message":"500 Unexpected token } in JSON at position 19"}
+{"level":"error","message":"400 \"name\" is required"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"500 WHERE parameter \"name\" has invalid \"undefined\" value"}
+{"level":"error","message":"500 groupToUpdate is not defined"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"info","message":"Method: POST, request body: {\"groupId\":\"75c5a366-6ebf-4c57-be2f-d61b20dac7a06\",\"userIds\":[\"mama\"]}"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"404 Group Not Found"}
+{"level":"error","message":"Uncaught exception ReferenceError: mama is not defined at uncaughtException"}
+{"level":"error","message":"Uncaught exception ReferenceError: logUncaughtRejection is not defined at uncaughtException"}
+{"level":"error","message":"Uncaught exception TypeError [ERR_INVALID_ARG_TYPE]: The \"listener\" argument must be of type function. Received undefined at uncaughtException"}
+{"level":"error","message":"Uncaught promise rejection: Error: exception!"}
+{"level":"error","message":"Uncaught promise rejection: Error: exception!"}
+{"level":"error","message":"400 \"login\" is required"}
+{"level":"error","message":"500 WHERE parameter \"login\" has invalid \"undefined\" value"}
+{"level":"error","message":"400 \"login\" is required"}
+{"level":"error","message":"500 WHERE parameter \"login\" has invalid \"undefined\" value"}
+{"level":"error","message":"400 \"login\" is required"}
+{"level":"error","message":"500 WHERE parameter \"login\" has invalid \"undefined\" value"}
+{"level":"error","message":"400 \"login\" is required"}
+{"level":"error","message":"400 \"name\" is required"}

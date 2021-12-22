@@ -1,12 +1,15 @@
-const deleteUserGroup = async function (userGroupModel, deletedRecord) {
+const UserGroup = require('../../models/UserGroup');
+
+
+const deleteUserGroup = async function (deletedRecord) {
     if (deletedRecord.userId) {
-        userGroupModel.destroy({ where: { userId: deletedRecord.userId } })
+        UserGroup.destroy({ where: { userId: deletedRecord.userId } })
             .catch(err => {
                 console.log(err);
             });
     }
     if (deletedRecord.groupId) {
-        userGroupModel.destroy({ where: { groupId: deletedRecord.groupId } })
+        UserGroup.destroy({ where: { groupId: deletedRecord.groupId } })
             .catch(err => {
                 console.log(err);
             });

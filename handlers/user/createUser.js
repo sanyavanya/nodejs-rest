@@ -1,26 +1,27 @@
 const uuid = require('uuid');
+const User = require('../../models/User');
 
-const createUser = async function (req, res, userModel) {
+const createUser = async function (req, res, next) {
     try {
-        const userWithThisLogin = await userModel.findOne({
+        const userWithThisLogin = await User.findOne({
             where: {
                 login: req.body.login
             }
         });
         if (userWithThisLogin) {
-            return res.status(400).json({ error: 'username taken' });
+            next({ code: 400, message: 'Username Taken' });
+        } else {
+            await User.create({
+                id: uuid.v4(),
+                ...req.body,
+                isDeleted: false
+            });
+            console.log('here')
+            res.status(201).send();
         }
-        await userModel.create({
-            id: uuid.v4(),
-            ...req.body,
-            isDeleted: false
-        });
-        res.status(201).send();
     } catch (err) {
-        console.log(err);
-        res.status(500).send('an error occured');
+        next(err);
     }
-    res.status(201).send();
 };
 
 module.exports = createUser;

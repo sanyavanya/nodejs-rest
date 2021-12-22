@@ -1,15 +1,17 @@
-const updateGroup = async function (req, res, groupModel) {
+const Group = require('../../models/Group');
+
+const updateGroup = async function (req, res, next) {
     const groupToUpdate = req.body;
     try {
-        const groupWithThisId = await groupModel.findByPk(groupToUpdate.id);
+        const groupWithThisId = await Group.findByPk(groupToUpdate.id);
         if (!groupWithThisId) {
-            return res.status(404).json({ error: 'group not found' });
+            next({ code: 404, message: 'Group Not Found' });
+        } else {
+            await groupWithThisId.update(req.body);
+            return res.status(204).send();
         }
-        await groupWithThisId.update(req.body);
-        return res.status(204).send();
     } catch (err) {
-        console.log(err);
-        res.status(500).send('an error occured');
+        next(err);
     }
 };
 

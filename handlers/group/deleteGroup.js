@@ -1,10 +1,16 @@
-const deleteGroup = async function (req, res, groupModel) {
+const Group = require('../../models/Group');
+const deleteUserGroup = require('../usergroup/deleteUserGroup');
+
+const deleteGroup = async function (req, res, next) {
     try {
-        await groupModel.destroy({ where: { id: req.group.id } });
-        return res.status(202).send();
+        if (req.group) {
+            await Group.destroy({ where: { id: req.group.id } });
+            deleteUserGroup({ groupId: req.group.id });
+            return res.status(202).send();
+        }
+        next({ code: 404, message: 'Group Not Found' });
     } catch (err) {
-        console.log(err);
-        res.status(404).json({ error: 'group not found' });
+        next(err);
     }
 };
 
