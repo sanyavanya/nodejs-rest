@@ -6,6 +6,7 @@ const handlers = require('./handlers/handlers');
 const schemas = require('./helpers/schemas');
 const validateSchema = require('./helpers/validateSchema');
 const logger = require('./helpers/logger');
+const checkToken = require('./helpers/checkToken');
 const User = require('./models/User');
 const Group = require('./models/Group');
 
@@ -18,6 +19,7 @@ const PORT = 4000;
 
 app.use(express.json());
 app.use(logger.logServiceMethod);
+app.use(checkToken);
 app.use('/', router);
 
 process.on('uncaughtException', logger.logUncaughtException);
@@ -36,6 +38,7 @@ router.post('/group', validateSchema(schemas.schemaGroupPost), handlers.createGr
 router.put('/group', validateSchema(schemas.schemaGroupPut), handlers.updateGroup);
 router.delete('/group/:groupId', handlers.deleteGroup);
 router.post('/addUsersToGroup', validateSchema(schemas.schemaUserGroupPost), handlers.addUsersToGroup);
+router.post('/login', validateSchema(schemas.schemaLoginPost), handlers.login);
 
 app.use(logger.logError);
 

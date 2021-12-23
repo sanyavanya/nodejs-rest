@@ -16,7 +16,6 @@ const createUser = async function (req, res, next) {
                 ...req.body,
                 isDeleted: false
             });
-            console.log('here')
             res.status(201).send();
         }
     } catch (err) {
