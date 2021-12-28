@@ -1,6 +1,8 @@
-require('dotenv').config();
+require('dotenv').config(); // should be disabled for production
 
+const config = require('./config');
 const express = require('express');
+const cors = require('cors');
 const process = require('process');
 const handlers = require('./handlers/handlers');
 const schemas = require('./helpers/schemas');
@@ -15,8 +17,8 @@ Group.belongsToMany(User, { through: 'UserGroup', foreignKey: 'userId' });
 
 const app = express();
 const router = express.Router();
-const PORT = 4000;
 
+app.use(cors());
 app.use(express.json());
 app.use(logger.logServiceMethod);
 app.use(checkToken);
@@ -42,4 +44,4 @@ router.post('/login', validateSchema(schemas.schemaLoginPost), handlers.login);
 
 app.use(logger.logError);
 
-app.listen(PORT);
+app.listen(config.PORT);
