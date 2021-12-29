@@ -1,22 +1,22 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-const sequelize = require('./sequelizeDb');
+const sequelize = require("./sequelizeDb");
 
 const Group = sequelize.define(
-    'Group',
-    {
-        id: {
-            type: DataTypes.TEXT,
-            primaryKey: true,
-            allowNull: false
-        },
-        name: { type: DataTypes.TEXT, allowNull: false },
-        permissions: { type: DataTypes.ARRAY(DataTypes.TEXT), allowNull: false }
+  "Group",
+  {
+    id: {
+      type: DataTypes.TEXT,
+      primaryKey: true,
+      allowNull: false,
     },
-    {
-        timestamps: false,
-        tableName: 'Groups'
-    }
+    name: { type: DataTypes.TEXT, allowNull: false },
+    permissions: { type: DataTypes.ARRAY(DataTypes.TEXT), allowNull: false },
+  },
+  {
+    timestamps: false,
+    tableName: "Groups",
+  }
 );
 
 module.exports = Group;

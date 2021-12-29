@@ -1,30 +1,30 @@
-const sequelize = require('./sequelizeDb');
-const { DataTypes } = require('sequelize');
-const User = require('./User');
-const Group = require('./Group');
+const sequelize = require("./sequelizeDb");
+const { DataTypes } = require("sequelize");
+const User = require("./User");
+const Group = require("./Group");
 
 const UserGroup = sequelize.define(
-    'UserGroup',
-    {
-        userId: {
-            type: DataTypes.TEXT,
-            references: {
-                model: User,
-                key: 'id'
-            }
-        },
-        groupId: {
-            type: DataTypes.TEXT,
-            references: {
-                model: Group,
-                key: 'id'
-            }
-        }
+  "UserGroup",
+  {
+    userId: {
+      type: DataTypes.TEXT,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
-    {
-        timestamps: false,
-        tableName: 'UserGroup'
-    }
+    groupId: {
+      type: DataTypes.TEXT,
+      references: {
+        model: Group,
+        key: "id",
+      },
+    },
+  },
+  {
+    timestamps: false,
+    tableName: "UserGroup",
+  }
 );
 
 // User.belongsToMany(Group, { through: 'UserGroup', foreignKey: 'userId' });
