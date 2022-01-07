@@ -1,5 +1,7 @@
 const { Sequelize } = require("sequelize");
 
+const isDbLoggingEnabled = process.env.DB_LOGGING === "enabled";
+
 const sequelizeOptions = {
   dialectOptions: {
     ssl: {
@@ -9,7 +11,7 @@ const sequelizeOptions = {
   },
 };
 
-if (process.env.DB_LOGGING !== "enabled") sequelizeOptions.logging = false;
+if (!isDbLoggingEnabled) sequelizeOptions.logging = false;
 
 const sequelize = new Sequelize(process.env.DATABASE_URI, sequelizeOptions);
 
