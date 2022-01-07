@@ -4,8 +4,7 @@ const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
 const getToken = require("../../getToken");
 
-// TODO double-check this
-describe.skip("get suggested users by username: GET /autosuggest", () => {
+describe("get suggested users by username: GET /autosuggest", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);

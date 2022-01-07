@@ -19,7 +19,7 @@ const router = express.Router();
 app.use(cors());
 app.use(express.json());
 app.use(logger.logServiceMethod);
-// app.use(checkToken);
+app.use(checkToken);
 app.use("/", router);
 
 // Log process errors
