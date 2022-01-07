@@ -1,6 +1,3 @@
-require("dotenv").config(); // should be disabled for production
-
-const config = require("./config");
 const express = require("express");
 const cors = require("cors");
 const process = require("process");
@@ -12,23 +9,31 @@ const checkToken = require("./helpers/checkToken");
 const User = require("./models/User");
 const Group = require("./models/Group");
 
+// Define many-to-many relationship
 User.belongsToMany(Group, { through: "UserGroup", foreignKey: "groupId" });
 Group.belongsToMany(User, { through: "UserGroup", foreignKey: "userId" });
 
+// Create app and use middleware
 const app = express();
 const router = express.Router();
-
 app.use(cors());
 app.use(express.json());
 app.use(logger.logServiceMethod);
-app.use(checkToken);
+// app.use(checkToken);
 app.use("/", router);
 
+// Log process errors
 process.on("uncaughtException", logger.logUncaughtException);
 process.on("unhandledRejection", logger.logUnhandledRejection);
 
+// Inject params
 router.param("id", handlers.getUserIdParam);
 router.param("groupId", handlers.getGroupIdParam);
+
+// Handlers: Login
+router.post("/login", validateSchema(schemas.schemaLoginPost), handlers.login);
+
+// Handlers: User
 router.get("/user/:id", handlers.readUser);
 router.post(
   "/user",
@@ -38,6 +43,8 @@ router.post(
 router.put("/user", validateSchema(schemas.schemaUserPut), handlers.updateUser);
 router.delete("/user/:id", handlers.deleteUser);
 router.get("/autosuggest", handlers.autoSuggest);
+
+// Handlers: Group
 router.get("/group/:groupId", handlers.readGroup);
 router.get("/groups", handlers.readAllGroups);
 router.post(
@@ -51,13 +58,15 @@ router.put(
   handlers.updateGroup
 );
 router.delete("/group/:groupId", handlers.deleteGroup);
+
+// Handlers: UserGroup
 router.post(
   "/addUsersToGroup",
   validateSchema(schemas.schemaUserGroupPost),
   handlers.addUsersToGroup
 );
-router.post("/login", validateSchema(schemas.schemaLoginPost), handlers.login);
 
+// Log errors and listen
 app.use(logger.logError);
 
-app.listen(config.PORT);
+module.exports = app;

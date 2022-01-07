@@ -1,4 +1,6 @@
 const winston = require("winston");
+const isReqLoggingEnabled = process.env.REQ_LOGGING === "enabled";
+
 winston.configure({
   transports: [
     new winston.transports.File({ filename: "errors.log", level: "info" }),
@@ -6,9 +8,11 @@ winston.configure({
 });
 
 const logServiceMethod = (req, res, next) => {
-  console.log(
-    `Method: ${req.method}, request body: ${JSON.stringify(req.body)}`
-  );
+  if (isReqLoggingEnabled)
+    console.log(
+      `Method: ${req.method}, request body: ${JSON.stringify(req.body)}`
+    );
+  // console.log(req.headers);
   next();
 };
 

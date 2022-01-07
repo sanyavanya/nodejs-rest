@@ -16,7 +16,14 @@ const createUser = async function (req, res, next) {
         ...req.body,
         isDeleted: false,
       });
-      res.status(201).send();
+      const createdUser = await User.findOne({
+        where: {
+          login: req.body.login,
+        },
+      });
+      const { id, login, age } = createdUser;
+      const createdUserData = { id, login, age };
+      res.status(201).send(createdUserData);
     }
   } catch (err) {
     next(err);

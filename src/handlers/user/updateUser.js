@@ -8,7 +8,7 @@ const updateUser = async function (req, res, next) {
       next({ code: 404, message: "User Not Found" });
     }
     await userWithThisId.update(req.body);
-    return res.status(204).send();
+    return res.status(204).send(userWithThisId);
   } catch (err) {
     next(err);
   }
