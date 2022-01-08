@@ -4,7 +4,7 @@ const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
 const getToken = require("../../getToken");
 
-describe("test autosuggest users", () => {
+describe("test update group", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);
@@ -12,11 +12,15 @@ describe("test autosuggest users", () => {
   afterAll((done) => {
     sequelizeDb.close().then(done());
   });
-  it("successfully finds two test users", async () => {
+  it("successfully updates an existing group", async () => {
     const res = await request(app)
-      .get("/autosuggest?loginSubstring=test&limit=2")
-      .set("x-access-token", token);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.length).toBe(2);
+      .put("/group")
+      .set("x-access-token", token)
+      .send({
+        id: "2d8ca2e9-bedc-4cf8-a67a-b9b43ee6eaa9",
+        name: "testupdated5",
+        permissions: ["READ", "UPDATE", "DELETE"],
+      });
+    expect(res.statusCode).toBe(204);
   });
 });

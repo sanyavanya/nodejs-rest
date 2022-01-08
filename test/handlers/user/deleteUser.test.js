@@ -4,7 +4,7 @@ const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
 const getToken = require("../../getToken");
 
-describe("delete user: DELETE /user/{id}", () => {
+describe("test delete user", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);

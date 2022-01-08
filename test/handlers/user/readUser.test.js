@@ -4,7 +4,7 @@ const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
 const getToken = require("../../getToken");
 
-describe("GET /user/{id}", () => {
+describe("test read user", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);
@@ -29,7 +29,7 @@ describe("GET /user/{id}", () => {
       .set("x-access-token", token);
     expect(res.statusCode).toBe(404);
   });
-  it("returns 404 is the user doesn't exist", async () => {
+  it("returns 404 if the user doesn't exist", async () => {
     const nonExistentUserId = "abrakadabra";
     const res = await request(app)
       .get("/user/" + nonExistentUserId)

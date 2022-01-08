@@ -5,7 +5,7 @@ const sequelizeDb = require("../../../src/models/sequelizeDb");
 const User = require("../../../src/models/User");
 const getToken = require("../../getToken");
 
-describe("update user: PUT /user/", () => {
+describe("test update user", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);

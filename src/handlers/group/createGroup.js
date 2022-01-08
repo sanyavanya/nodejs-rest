@@ -15,7 +15,14 @@ const createGroup = async function (req, res, next) {
         id: uuid.v4(),
         ...req.body,
       });
-      res.status(201).send();
+      const createdGroup = await Group.findOne({
+        where: {
+          name: req.body.name,
+        },
+      });
+      const { id, name, permissions } = createdGroup;
+      const createdGroupData = { id, name, permissions };
+      res.status(201).send(createdGroupData);
     }
   } catch (err) {
     next(err);

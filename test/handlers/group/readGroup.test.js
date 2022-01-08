@@ -4,7 +4,7 @@ const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
 const getToken = require("../../getToken");
 
-describe("test autosuggest users", () => {
+describe("test read group", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);
@@ -12,11 +12,18 @@ describe("test autosuggest users", () => {
   afterAll((done) => {
     sequelizeDb.close().then(done());
   });
-  it("successfully finds two test users", async () => {
+  it("successfully reads an existing group", async () => {
+    const testGroupId = "6f89d3b6-3826-49bd-bf20-7649a0547de6";
     const res = await request(app)
-      .get("/autosuggest?loginSubstring=test&limit=2")
+      .get("/group/" + testGroupId)
       .set("x-access-token", token);
     expect(res.statusCode).toBe(200);
-    expect(res.body.length).toBe(2);
+    expect(res.body.id).toBe(testGroupId);
+  });
+  it("returns 404 if the group doesn't exist", async () => {
+    const res = await request(app)
+      .get("/group/abrakadabra")
+      .set("x-access-token", token);
+    expect(res.statusCode).toBe(404);
   });
 });

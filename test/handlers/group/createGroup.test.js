@@ -2,10 +2,10 @@ require("dotenv").config({ path: ".env.test" });
 const request = require("supertest");
 const app = require("../../../src/app");
 const sequelizeDb = require("../../../src/models/sequelizeDb");
-const User = require("../../../src/models/User");
 const getToken = require("../../getToken");
+const Group = require("../../../src/models/Group");
 
-describe("test create user", () => {
+describe("test create group", () => {
   let token;
   beforeAll(async () => {
     token = await getToken(app);
@@ -13,14 +13,18 @@ describe("test create user", () => {
   afterAll((done) => {
     sequelizeDb.close().then(done());
   });
-  it("successfully creates a new user and then hard-deletes it", async () => {
+  it("successfully creates a new group and then deletes it", async () => {
+    const testGroupId = "6f89d3b6-3826-49bd-bf20-7649a0547de6";
     const res = await request(app)
-      .post("/user")
+      .post("/group/")
       .set("x-access-token", token)
-      .send({ login: "testcreated", password: "aBcDe12345", age: 20 });
+      .send({
+        name: "testcreated",
+        permissions: ["READ", "UPDATE", "DELETE"],
+      });
     expect(res.statusCode).toBe(201);
     try {
-      const result = await User.destroy({
+      const result = await Group.destroy({
         where: { id: res.body.id },
       });
       expect(result).toBe(1);
@@ -28,11 +32,14 @@ describe("test create user", () => {
       console.log(err);
     }
   });
-  it("fails to create a user if the login is already taken", async () => {
+  it("fails to create a group if the name is already taken", async () => {
     const res = await request(app)
-      .post("/user")
+      .post("/group")
       .set("x-access-token", token)
-      .send({ login: "test", password: "aBcDe12345", age: 20 });
+      .send({
+        name: "testgroup",
+        permissions: ["READ", "UPDATE", "DELETE"],
+      });
     expect(res.statusCode).toBe(400);
   });
 });
